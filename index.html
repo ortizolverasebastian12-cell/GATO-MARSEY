@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Sitio Web Gatuno</title>
+    <!-- Tipografía suave y moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta verde pastel muy bonita y tierna */
+            --bg-pastel: #e2f0d9;
+            --bg-card: #ffffff;
+            --primary: #6da373;
+            --primary-hover: #588a5e;
+            --primary-light: #f0f7ed;
+            --text-color: #385e3c;
+            --text-dark: #2f3e2e;
+            --border-color: #cce3c3;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: var(--bg-pastel);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Barra de Navegación */
+        nav {
+            background-color: var(--bg-card);
+            padding: 12px 24px;
+            border-radius: 50px;
+            box-shadow: 0 6px 20px rgba(109, 163, 115, 0.15);
+            margin-bottom: 25px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            border: 2px solid var(--border-color);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background-color: transparent;
+        }
+
+        nav a:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Contenedor Principal */
+        .container {
+            width: 100%;
+            max-width: 950px;
+        }
+
+        /* Estilos de las Secciones / Páginas */
+        .page {
+            display: none; /* Ocultas por defecto */
+            background: var(--bg-card);
+            border-radius: 25px;
+            padding: 40px;
+            box-shadow: 0 12px 35px rgba(109, 163, 115, 0.12);
+            border: 2px solid var(--border-color);
+        }
+
+        /* Navegación mediante :target (sin JavaScript) */
+        .page:target {
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        /* Si no hay ninguna sección seleccionada en la URL, muestra la primera */
+        #pag1:target ~ #pag1,
+        body:not(:has(:target)) #pag1 {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Encabezados y Textos */
+        h1, h2, h3, h4 {
+            color: var(--text-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        h1 { font-size: 2.3rem; }
+        h4 { font-size: 1.5rem; }
+
+        p {
+            font-size: 1.1rem;
+            color: #556b53;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        /* Imágenes de Gatos */
+        .img-box {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            max-height: 320px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border: 4px solid var(--primary-light);
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.03) rotate(1deg);
+        }
+
+        /* Botón estándar */
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(109, 163, 115, 0.3);
+            display: inline-block;
+            margin: 10px auto;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-container {
+            text-align: center;
+        }
+
+        /* Enlaces internos bonitos tipo botón */
+        .link-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .link-group a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 700;
+            background: var(--primary-light);
+            padding: 10px 20px;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s ease;
+        }
+
+        .link-group a:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Lista de Meses */
+        .months-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .months-list li {
+            background: var(--primary-light);
+            padding: 14px;
+            text-align: center;
+            border-radius: 15px;
+            font-weight: 700;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s;
+        }
+
+        .months-list li:hover {
+            transform: translateY(-3px);
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Tabla de Horario Escolar */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            padding: 14px 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            color: #4a5d48;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f7faf5;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra de Navegación con links puros -->
+    <nav>
+        <a href="#pag1">Página 1</a>
+        <a href="#pag2">Página 2</a>
+        <a href="#pag-link">Gatitos & Links</a>
+        <a href="#pag-meses">Meses</a>
+        <a href="#pag-horario">Horario</a>
+    </nav>
+
+    <div class="container">
+
+        <!-- SECCIÓN 1 -->
+        <section id="pag1" class="page">
+            <h1>MI PRIMERA PÁGINA</h1>
+            <p>¡VOY A PODER CON TODO! 🐾</p>
+            <div class="img-box">
+                <!-- Imagen de gatito tierno de internet -->
+                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?auto=format&fit=crop&w=800&q=80" alt="Gatito tierno">
+            </div>
+            <h3>CREAR HIPERVÍNCULO</h3>
+            <div class="link-group">
+                <a href="#pag1">Ir a pág 1</a>
+                <a href="#pag2">Ir a pág 2</a>
+                <a href="#pag-horario">Ver Horario</a>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2 -->
+        <section id="pag2" class="page">
+            <h4>Aprendiendo a usar links</h4>
+            <p>¡Navega por las secciones de manera muy fácil!</p>
+            <div class="link-group">
+                <a href="#pag1">Voy a pág principal</a>
+                <a href="#pag-link">Ver sección de gatos</a>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3 -->
+        <section id="pag-link" class="page">
+            <h1>MI ZONA DE GATOS</h1>
+            <p>¡Mucho amor felino y enlaces funcionales!</p>
+            
+            <div class="btn-container">
+                <input type="button" class="btn" value="¡Click aquí, miau!"/>
+            </div>
+
+            <div class="img-box">
+                <!-- Otro gatito hermoso -->
+                <img src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?auto=format&fit=crop&w=800&q=80" alt="Gatito curioso">
+            </div>
+
+            <div class="link-group">
+                <a href="#pag1">Voy a pág principal</a>
+                <a href="#pag2">Ir a pág 2</a>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: MESES -->
+        <section id="pag-meses" class="page">
+            <h1>Meses del Año 🐱</h1>
+            <ul class="months-list">
+                <li>Enero</li>
+                <li>Febrero</li>
+                <li>Marzo</li>
+                <li>Abril</li>
+                <li>Mayo</li>
+                <li>Junio</li>
+                <li>Julio</li>
+                <li>Agosto</li>
+                <li>Septiembre</li>
+                <li>Octubre</li>
+                <li>Noviembre</li>
+                <li>Diciembre</li>
+            </ul>
+        </section>
+
+        <!-- SECCIÓN 5: HORARIO ESCOLAR -->
+        <section id="pag-horario" class="page">
+            <h1>HORARIO PICHURRIENTO GATUNO</h1>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>HORAS</th>
+                            <th>LUNES</th>
+                            <th>MARTES</th>
+                            <th>MIÉRCOLES</th>
+                            <th>JUEVES</th>
+                            <th>VIERNES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>7-8</td>
+                            <td rowspan="2">APLICACIONES DEL<br>PENSAMIENTO MATEMÁTICO</td>
+                            <td rowspan="2">LA ENERGÍA EN<br>LOS PROCESOS DE<br>LA VIDA DIARIA</td>
+                            <td>—</td>
+                            <td rowspan="2">LA ENERGÍA EN<br>LOS PROCESOS DE<br>LA VIDA DIARIA</td>
+                            <td>ÁMBITO DE FORMACIÓN<br>SOCIOEMOCIONAL V:<br>ACTIVIDADES ARTÍSTICAS</td>
+                        </tr>
+                        <tr>
+                            <td>8-9</td>
+                            <td rowspan="2">IMPLEMENTA<br>APLICACIONES WEB</td>
+                            <td rowspan="2">CONSTRUYE<br>APLICACIONES WEB</td>
+                        </tr>
+                        <tr>
+                            <td>9-10</td>
+                            <td>TEMAS SELECTOS<br>DE MATEMÁTICAS II</td>
+                            <td>CONCIENCIA HISTÓRICA II:<br>MÉXICO EXPANSIONISMO</td>
+                            <td rowspan="2">CONCIENCIA HISTÓRICA II:<br>MÉXICO EXPANSIONISMO</td>
+                        </tr>
+                        <tr>
+                            <td>10-11</td>
+                            <td rowspan="2">CONSTRUYE<br>APLICACIONES WEB</td>
+                            <td>IMPLEMENTA<br>APLICACIONES WEB</td>
+                            <td rowspan="2">INGLÉS V</td>
+                            <td rowspan="2">IMPLEMENTA<br>APLICACIONES WEB</td>
+                        </tr>
+                        <tr>
+                            <td>11-12</td>
+                            <td rowspan="3">CONSTRUYE<br>APLICACIONES WEB</td>
+                            <td>APLICACIONES DEL<br>PENSAMIENTO MATEMÁTICO</td>
+                        </tr>
+                        <tr>
+                            <td>12-13</td>
+                            <td rowspan="2">INGLÉS V</td>
+                            <td rowspan="2">TEMAS SELECTOS<br>DE MATEMÁTICAS II</td>
+                            <td>ÁMBITO DE FORMACIÓN<br>SOCIOEMOCIONAL V</td>
+                            <td rowspan="2">TEMAS SELECTOS<br>DE MATEMÁTICAS II</td>
+                        </tr>
+                        <tr>
+                            <td>13-14</td>
+                            <td>INGLÉS V</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </div>
+
+</body>
+</html>
